@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCounter(@NonNull ArrayList<Question> questions) {
-        binding.textViewOutOf.setText(String.format(getString(R.string.text_formatted), currentQuestionIndex, questions.size()));
+        binding.textViewOutOf.setText(String.format(getString(R.string.text_formatted), currentQuestionIndex + 1, questions.size()));
     }
 
     private void updateQuestion() {
