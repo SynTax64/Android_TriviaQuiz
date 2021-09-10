@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Trivia</string>
+    <string name="title_text">Trivia</string>
+    <string name="out_of_text">Question: 45/98</string>
+    <string name="back_button">Back</string>
+    <string name="next_button">Next</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="question_placeholder">Hello this is where we are going to add actially text to be shown</string>
 </resources>
