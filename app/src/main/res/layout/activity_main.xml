@@ -108,7 +108,7 @@
             app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/highest_score_text"
             android:minWidth="140dp"
             style="@style/MainTextStyle"
             android:layout_width="wrap_content"

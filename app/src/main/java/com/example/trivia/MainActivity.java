@@ -1,6 +1,5 @@
 package com.example.trivia;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         score = new Score();
         prefs = new Prefs(MainActivity.this);
+        binding.highestScoreText.setText(String.format("Highest score: {0}", prefs.getHighestScore()));
 
 //        Log.d("Prefs", "onCreate: " + prefs.getHighestScore());
         binding.scoreText.setText(String.format("Current score: %s", score.getScore()));
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonNext.setOnClickListener(view -> {
             currentQuestionIndex = (currentQuestionIndex + 1) % questions.size();
             updateQuestion();
-            prefs.saveHighestScore(scoreCounter);
-            Log.d("Prefs", "onCreate: " + prefs.getHighestScore());
+//            prefs.saveHighestScore(scoreCounter);
+//            Log.d("Prefs", "onCreate: " + prefs.getHighestScore());
         });
 
         binding.buttonTrue.setOnClickListener(view -> {
@@ -158,5 +158,12 @@ public class MainActivity extends AppCompatActivity {
         score.setScore(scoreCounter);
 //        Log.d("Score", "addPoints: " + scoreCounter);
         binding.scoreText.setText(String.format("Current score: %s", score.getScore()));
+    }
+
+    @Override
+    protected void onPause() {
+        prefs.saveHighestScore(score.getScore());
+        Log.d("Pause", "onPause: saving score " + prefs.getHighestScore());
+        super.onPause();
     }
 }
