@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         score = new Score();
 
+        binding.scoreText.setText(String.format("Current score: %s", score.getScore()));
+
         questions = new Repository().getQuestions(questionArrayList -> {
             binding.questionTextview.setText(questionArrayList.get(currentQuestionIndex)
                     .getAnswer());
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             scoreCounter -= 100;
             score.setScore(scoreCounter);
 //            Log.d("Deduct", "deductPoints: " + score.getScore());
-            binding.scoreText.setText(String.valueOf(score.getScore()));
+            binding.scoreText.setText(String.format("Current score: %s", score.getScore()));
         } else {
             scoreCounter = 0;
             score.setScore(scoreCounter);
@@ -148,6 +150,6 @@ public class MainActivity extends AppCompatActivity {
         scoreCounter += 100;
         score.setScore(scoreCounter);
 //        Log.d("Score", "addPoints: " + scoreCounter);
-        binding.scoreText.setText(String.valueOf(score.getScore()));
+        binding.scoreText.setText(String.format("Current score: %s", score.getScore()));
     }
 }
