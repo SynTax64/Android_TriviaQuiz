@@ -1,5 +1,6 @@
 package com.example.trivia;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.trivia.Util.Prefs;
 import com.example.trivia.data.Repository;
 import com.example.trivia.databinding.ActivityMainBinding;
 import com.example.trivia.model.Question;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     List<Question> questions;
     private int scoreCounter = 0;
     private Score score;
+    private Prefs prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         score = new Score();
+        prefs = new Prefs(MainActivity.this);
 
+//        Log.d("Prefs", "onCreate: " + prefs.getHighestScore());
         binding.scoreText.setText(String.format("Current score: %s", score.getScore()));
 
         questions = new Repository().getQuestions(questionArrayList -> {
@@ -48,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonNext.setOnClickListener(view -> {
             currentQuestionIndex = (currentQuestionIndex + 1) % questions.size();
             updateQuestion();
+            prefs.saveHighestScore(scoreCounter);
+            Log.d("Prefs", "onCreate: " + prefs.getHighestScore());
         });
 
         binding.buttonTrue.setOnClickListener(view -> {
